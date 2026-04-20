@@ -1,9 +1,25 @@
 ![](https://raw.githubusercontent.com/LuckPerms/branding/master/banner/banner.png "Banner")
-# LuckPerms
+# LuckPerms — Folia Fork
 [![Build Status](https://ci.lucko.me/job/LuckPerms/badge/icon)](https://ci.lucko.me/job/LuckPerms/)
 [![javadoc](https://javadoc.io/badge2/net.luckperms/api/javadoc.svg)](https://javadoc.io/doc/net.luckperms/api)
 [![Maven Central](https://img.shields.io/maven-metadata/v/https/repo1.maven.org/maven2/net/luckperms/api/maven-metadata.xml.svg?label=maven%20central&colorB=brightgreen)](https://search.maven.org/artifact/net.luckperms/api)
 [![Discord](https://img.shields.io/discord/241667244927483904.svg?label=discord&logo=discord)](https://discord.gg/luckperms)
+
+> **This is a fork of [LuckPerms](https://github.com/LuckPerms/LuckPerms) with added support for [Folia](https://github.com/PaperMC/Folia)**, the regionalized multithreading server software by PaperMC. See [flennium/folia-luckperms](https://github.com/flennium/folia-luckperms) for releases.
+
+## What's different in this fork
+
+Folia uses a regionalized threading model where each region of the world runs on its own thread, which breaks the standard Bukkit scheduler API. This fork adds a `FoliaSchedulerAdapter` that uses Folia's region-aware scheduler APIs so LuckPerms works correctly on Folia servers without any hacks or workarounds.
+
+Changes include:
+- New `folia/` module with a dedicated Folia build target
+- `FoliaSchedulerAdapter` — replaces `BukkitSchedulerAdapter` on Folia, routing tasks through the correct regional/global/async schedulers
+- Detection logic in `LPBukkitBootstrap` to automatically use the Folia scheduler when running on a Folia server
+- Refactored `SchedulerAdapter` and `JavaSchedulerAdapter` shared across all platforms to support this cleanly
+
+To use this on a Folia server, drop in the jar from this fork instead of the standard LuckPerms jar. Everything else works the same.
+
+---
 
 LuckPerms is a permissions plugin for Minecraft servers. It allows server admins to control what features players can use by creating groups and assigning permissions.
 
@@ -53,7 +69,7 @@ The project is split up into a few separate modules.
 
 * **API** - The public, semantically versioned API used by other plugins wishing to integrate with and retrieve data from LuckPerms. This module (for the most part) does not contain any implementation itself, and is provided by the plugin.
 * **Common** - The common module contains most of the code which implements the respective LuckPerms plugins. This abstract module reduces duplicated code throughout the project.
-* **Bukkit, BungeeCord, Fabric, Forge, Nukkit, Sponge & Velocity** - Each use the common module to implement plugins on the respective server platforms.
+* **Bukkit, BungeeCord, Fabric, Folia, Forge, Nukkit, Sponge & Velocity** - Each use the common module to implement plugins on the respective server platforms. The Folia module is specific to this fork and targets Folia's regionalized threading model.
 
 ## License
 LuckPerms is licensed under the permissive MIT license. Please see [`LICENSE.txt`](https://github.com/LuckPerms/LuckPerms/blob/master/LICENSE.txt) for more info.
