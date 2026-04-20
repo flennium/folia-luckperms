@@ -23,24 +23,18 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.bukkit;
+package me.lucko.luckperms.folia;
 
-import me.lucko.luckperms.common.plugin.scheduler.AbstractJavaScheduler;
-import me.lucko.luckperms.common.plugin.scheduler.SchedulerAdapter;
+import me.lucko.luckperms.bukkit.BukkitSchedulerAdapter;
 
-import java.util.concurrent.Executor;
+/**
+ * Scheduler adapter for Folia.
+ */
+public class FoliaSchedulerAdapter extends BukkitSchedulerAdapter {
 
-public class BukkitSchedulerAdapter extends AbstractJavaScheduler implements SchedulerAdapter {
-    protected Executor sync;
-
-    public BukkitSchedulerAdapter(LPBukkitBootstrap bootstrap) {
+    public FoliaSchedulerAdapter(LPFoliaBootstrap bootstrap) {
         super(bootstrap);
-        this.sync = r -> bootstrap.getServer().getScheduler().scheduleSyncDelayedTask(bootstrap.getLoader(), r);
-    }
-
-    @Override
-    public Executor sync() {
-        return this.sync;
+        this.sync = r -> bootstrap.getServer().getGlobalRegionScheduler().execute(bootstrap.getLoader(), r);
     }
 
 }

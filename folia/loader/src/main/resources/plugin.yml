@@ -1,0 +1,15 @@
+name: LuckPerms
+version: ${pluginVersion}
+description: A permissions plugin
+author: Luck
+website: https://luckperms.net
+main: me.lucko.luckperms.folia.loader.FoliaLoaderPlugin
+load: STARTUP
+folia-supported: true
+api-version: 1.13
+loadbefore: [Vault]
+softdepend: [LilyPad-Connect, ViaVersion]
+commands:
+  luckperms:
+    description: Manage permissions
+    aliases: [lp, perm, perms, permission, permissions]

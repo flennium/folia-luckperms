@@ -55,12 +55,12 @@ import java.util.regex.Pattern;
 public class BukkitConnectionListener extends AbstractConnectionListener implements Listener {
     private static final Predicate<? super String> IS_CRAFTBUKKIT_PREDICATE = Pattern.compile("^(?:git|\\d+)-Bukkit-[0-9a-f]{7}(?: .*)?$").asPredicate();
 
-    private final LPBukkitPlugin plugin;
+    protected final LPBukkitPlugin plugin;
 
-    private final boolean detectedCraftBukkitOfflineMode;
+    protected final boolean detectedCraftBukkitOfflineMode;
 
-    private final Set<UUID> deniedAsyncLogin = Collections.synchronizedSet(new HashSet<>());
-    private final Set<UUID> deniedLogin = Collections.synchronizedSet(new HashSet<>());
+    protected final Set<UUID> deniedAsyncLogin = Collections.synchronizedSet(new HashSet<>());
+    protected final Set<UUID> deniedLogin = Collections.synchronizedSet(new HashSet<>());
 
     public BukkitConnectionListener(LPBukkitPlugin plugin) {
         super(plugin);

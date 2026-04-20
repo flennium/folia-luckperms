@@ -56,47 +56,47 @@ import java.util.logging.Logger;
  * Bootstrap plugin for LuckPerms running on Bukkit.
  */
 public class LPBukkitBootstrap implements LuckPermsBootstrap, LoaderBootstrap, BootstrappedWithLoader {
-    private final JavaPlugin loader;
+    protected final JavaPlugin loader;
 
     /**
      * The plugin logger
      */
-    private final PluginLogger logger;
+    protected final PluginLogger logger;
 
     /**
      * A scheduler adapter for the platform
      */
-    private final BukkitSchedulerAdapter schedulerAdapter;
+    protected final BukkitSchedulerAdapter schedulerAdapter;
 
     /**
      * The plugin class path appender
      */
-    private final ClassPathAppender classPathAppender;
+    protected final ClassPathAppender classPathAppender;
 
     /**
      * A null-safe console instance which delegates to the server logger
      * if {@link Server#getConsoleSender()} returns null.
      */
-    private final ConsoleCommandSender console;
+    protected final ConsoleCommandSender console;
 
     /**
      * The plugin instance
      */
-    private final LPBukkitPlugin plugin;
+    protected LPBukkitPlugin plugin;
 
     /**
      * The time when the plugin was enabled
      */
-    private Instant startTime;
+    protected Instant startTime;
 
     // load/enable latches
-    private final CountDownLatch loadLatch = new CountDownLatch(1);
-    private final CountDownLatch enableLatch = new CountDownLatch(1);
-    private boolean serverStarting = true;
-    private boolean serverStopping = false;
+    protected final CountDownLatch loadLatch = new CountDownLatch(1);
+    protected final CountDownLatch enableLatch = new CountDownLatch(1);
+    protected boolean serverStarting = true;
+    protected boolean serverStopping = false;
 
     // if the plugin has been loaded on an incompatible version
-    private boolean incompatibleVersion = false;
+    protected boolean incompatibleVersion = false;
 
     public LPBukkitBootstrap(JavaPlugin loader) {
         this.loader = loader;

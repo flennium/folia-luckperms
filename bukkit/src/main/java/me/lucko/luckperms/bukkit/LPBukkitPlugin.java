@@ -81,19 +81,19 @@ import java.util.stream.Stream;
  * LuckPerms implementation for the Bukkit API.
  */
 public class LPBukkitPlugin extends AbstractLuckPermsPlugin {
-    private final LPBukkitBootstrap bootstrap;
+    protected final LPBukkitBootstrap bootstrap;
 
-    private BukkitSenderFactory senderFactory;
-    private BukkitConnectionListener connectionListener;
-    private BukkitCommandExecutor commandManager;
-    private StandardUserManager userManager;
-    private StandardGroupManager groupManager;
-    private StandardTrackManager trackManager;
-    private BukkitContextManager contextManager;
-    private LuckPermsSubscriptionMap subscriptionMap;
-    private LuckPermsPermissionMap permissionMap;
-    private LuckPermsDefaultsMap defaultPermissionMap;
-    private VaultHookManager vaultHookManager = null;
+    protected BukkitSenderFactory senderFactory;
+    protected BukkitConnectionListener connectionListener;
+    protected BukkitCommandExecutor commandManager;
+    protected StandardUserManager userManager;
+    protected StandardGroupManager groupManager;
+    protected StandardTrackManager trackManager;
+    protected BukkitContextManager contextManager;
+    protected LuckPermsSubscriptionMap subscriptionMap;
+    protected LuckPermsPermissionMap permissionMap;
+    protected LuckPermsDefaultsMap defaultPermissionMap;
+    protected VaultHookManager vaultHookManager = null;
     
     public LPBukkitPlugin(LPBukkitBootstrap bootstrap) {
         this.bootstrap = bootstrap;

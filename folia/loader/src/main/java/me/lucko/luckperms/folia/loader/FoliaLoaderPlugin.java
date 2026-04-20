@@ -23,24 +23,36 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.bukkit;
+package me.lucko.luckperms.folia.loader;
 
-import me.lucko.luckperms.common.plugin.scheduler.AbstractJavaScheduler;
-import me.lucko.luckperms.common.plugin.scheduler.SchedulerAdapter;
+import me.lucko.luckperms.common.loader.JarInJarClassLoader;
+import me.lucko.luckperms.common.loader.LoaderBootstrap;
+import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.concurrent.Executor;
+public class FoliaLoaderPlugin extends JavaPlugin {
+    private static final String JAR_NAME = "luckperms-folia.jarinjar";
+    private static final String BOOTSTRAP_CLASS = "me.lucko.luckperms.folia.LPFoliaBootstrap";
 
-public class BukkitSchedulerAdapter extends AbstractJavaScheduler implements SchedulerAdapter {
-    protected Executor sync;
+    private final LoaderBootstrap plugin;
 
-    public BukkitSchedulerAdapter(LPBukkitBootstrap bootstrap) {
-        super(bootstrap);
-        this.sync = r -> bootstrap.getServer().getScheduler().scheduleSyncDelayedTask(bootstrap.getLoader(), r);
+    public FoliaLoaderPlugin() {
+        JarInJarClassLoader loader = new JarInJarClassLoader(getClass().getClassLoader(), JAR_NAME);
+        this.plugin = loader.instantiatePlugin(BOOTSTRAP_CLASS, JavaPlugin.class, this);
     }
 
     @Override
-    public Executor sync() {
-        return this.sync;
+    public void onLoad() {
+        this.plugin.onLoad();
+    }
+
+    @Override
+    public void onEnable() {
+        this.plugin.onEnable();
+    }
+
+    @Override
+    public void onDisable() {
+        this.plugin.onDisable();
     }
 
 }

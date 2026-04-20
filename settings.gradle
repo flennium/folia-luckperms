@@ -24,6 +24,8 @@ include (
         'common:minecraft',
         'bukkit',
         'bukkit:loader',
+        'folia',
+        'folia:loader',
         'bukkit-legacy',
         'bukkit-legacy:loader',
         'bungee',
